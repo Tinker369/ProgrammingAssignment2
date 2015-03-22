@@ -1,16 +1,16 @@
-## The following is a pair of functions that cache and compute the 
+## These are functions that cache and compute the 
 ## inverse of a matrix.
 
 ## This function creates a special "matrix" object
 ## that can cache its inverse.
 
-makeCacheMatrix <- function(mtx = matrix()) {
+makeCacheMatrix <- function(mcm = matrix()) {
   inverse <- NULL
   set <- function(x) {
-    mtx <<- x;
+    mcm <<- x;
     inverse <<- NULL;
   }
-  get <- function() return(mtx);
+  get <- function() return(mcm);
   setinv <- function(inv) inverse <<- inv;
   getinv <- function() return(inverse);
   return(list(set = set, get = get, setinv = setinv, getinv = getinv))
@@ -21,14 +21,14 @@ makeCacheMatrix <- function(mtx = matrix()) {
 ## already been calculated (and the matrix has not changed), then
 ## `cacheSolve` should retrieve the inverse from the cache.
 
-cacheSolve <- function(mtx, ...) {
-  inverse <- mtx$getinv()
+cacheSolve <- function(mcm, ...) {
+  inverse <- mcm$getinv()
   if(!is.null(inverse)) {
     message("Getting cached data...")
     return(inverse)
   }
-  data <- mtx$get()
+  data <- mcm$get()
   invserse <- solve(data, ...)
-  mtx$setinv(inverse)
+  mcm$setinv(inverse)
   return(inverse)
 }
